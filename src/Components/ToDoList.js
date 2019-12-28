@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import Accordion from "react-bootstrap/Accordion";
-import Card from "react-bootstrap/Card";
+import { Accordion } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 
 export default class ToDoList extends Component {
   constructor() {
