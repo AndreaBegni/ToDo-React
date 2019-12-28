@@ -1,11 +1,10 @@
-import React from "react";
+import React from "react"
+import Navigation from './Components/Navigation'
 
 function App() {
   return (
     <div className="App">
-      <div class="alert alert-primary" role="alert">
-        A simple primary alert—check it out!
-      </div>
+      <Navigation></Navigation>
     </div>
   );
 }
