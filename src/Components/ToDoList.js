@@ -3,16 +3,10 @@ import { Accordion } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 
 export default class ToDoList extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {
-      todos: [
-        { title: "Cosa da fare 1", description: "descrizione cosa da fare 1" },
-        { title: "Cosa da fare 2", description: "descrizione cosa da fare 2" },
-        { title: "Cosa da fare 3", description: "descrizione cosa da fare 3" }
-      ]
-    };
+    this.state = props.todoJSON;
   }
 
   render() {

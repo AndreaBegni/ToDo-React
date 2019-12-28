@@ -1,12 +1,15 @@
-import React from "react"
-import Navigation from './Components/Navigation'
-import ToDoList from './Components/ToDoList'
+import React from "react";
+import Navigation from "./Components/Navigation";
+import ToDoList from "./Components/ToDoList";
+import FormNewToDo from "./Components/FormNewToDo";
+import todoJSON from "./todos.json"
 
 function App() {
   return (
     <div className="App">
       <Navigation></Navigation>
-      <ToDoList></ToDoList>
+      <FormNewToDo></FormNewToDo>
+      <ToDoList todoJSON={todoJSON}></ToDoList>
     </div>
   );
 }
