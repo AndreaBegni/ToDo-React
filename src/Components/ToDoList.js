@@ -18,9 +18,9 @@ export default class ToDoList extends Component {
   render() {
     const { todos } = this.state;
     const renderTodos = todos.map((todo, i) => (
-      <Card>
+      <Card key={i}>
         <Accordion.Toggle as={Card.Header} eventKey={i}>
-          {todo.title}
+          <h3>{todo.title}</h3>
         </Accordion.Toggle>
         <Accordion.Collapse eventKey={i}>
           <Card.Body>{todo.description}</Card.Body>
@@ -28,10 +28,6 @@ export default class ToDoList extends Component {
       </Card>
     ));
 
-    return (
-      <Accordion>
-        {renderTodos}
-      </Accordion>
-    );
+    return <Accordion>{renderTodos}</Accordion>;
   }
 }
