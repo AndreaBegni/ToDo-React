@@ -6,11 +6,13 @@ export default class Navigation extends Component {
     return (
       <Nav justify variant="tabs" defaultActiveKey="#action1">
         <Nav.Item>
-          <Nav.Link href="#action1">Tasks</Nav.Link>
+          <Nav.Link href="#action1">
+            <h2>Tasks</h2>
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link href="#action2">
-            Completed Tasks
+            <h2>Completed Tasks</h2>
           </Nav.Link>
         </Nav.Item>
       </Nav>
