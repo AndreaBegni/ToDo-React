@@ -6,6 +6,14 @@ import { Button } from "react-bootstrap";
 import { Jumbotron, Container } from "react-bootstrap";
 
 export default class FormNewToDo extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      todos: props.todoJSON
+    };
+  }
+
   render() {
     return (
       <Jumbotron>
@@ -35,7 +43,11 @@ export default class FormNewToDo extends Component {
             <Form.Label>Description</Form.Label>
             <Form.Control as="textarea" rows="4" />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="button"
+            onClick={() => this.props.updateToDos(this.state.todos)}
+          >
             Save
           </Button>
         </Form>
