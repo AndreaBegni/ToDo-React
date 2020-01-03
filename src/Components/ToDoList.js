@@ -3,15 +3,6 @@ import { Accordion } from "react-bootstrap";
 import { Card } from "react-bootstrap";
 
 export default class ToDoList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      todos: props.todos
-    };
-    console.log(props.todos);
-  }
-
   renderTodos = todos => {
     if (todos != null) {
       return todos.map((todo, i) => (
@@ -28,8 +19,6 @@ export default class ToDoList extends Component {
   };
 
   render() {
-    const { todos } = this.state;
-
-    return <Accordion>{this.renderTodos(todos)}</Accordion>;
+    return <Accordion>{this.renderTodos(this.props.todos)}</Accordion>;
   }
 }
