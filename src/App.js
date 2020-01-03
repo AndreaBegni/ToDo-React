@@ -8,7 +8,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      todos: this.loadToDos()
+      todos: []
     };
 
     this.updateToDos = this.updateToDos.bind(this);
@@ -16,12 +16,21 @@ export default class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('beforeunload', () => localStorage.setItem("todos", JSON.stringify(this.state.todos)));
+    //check if the page gets closed
+    window.addEventListener("beforeunload", () =>
+      //save the current todos that are in the state into the localStorage
+      localStorage.setItem("todos", JSON.stringify(this.state.todos))
+    );
+    this.loadToDos();
   }
 
   loadToDos = () => {
+    //check there is a todo item already saved in localStorage
     if (localStorage.getItem("todos") != null) {
-      return JSON.parse(localStorage.getItem("todos"));
+      this.setState({
+        //set the todos in state with the todos saved in the localStorage
+        todos: JSON.parse(localStorage.getItem("todos"))
+      });
     }
   };
 
