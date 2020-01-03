@@ -12,6 +12,32 @@ export default class FormNewToDo extends Component {
     this.state = {
       todos: props.todos
     };
+
+    this.newToDo = this.newToDo.bind(this);
+    this.title = React.createRef();
+    this.priority = React.createRef();
+    this.description = React.createRef();
+  }
+
+  newToDo() {
+    //create a copy of the current todos in state
+    let todos = this.state.todos;
+    //create a newTodo object
+    let newTodo = { title: "", description: "", priority: "low" };
+    //fill the newTodo object
+    newTodo.title = this.title.current.value;
+    newTodo.description = this.description.current.value;
+    newTodo.priority = this.priority.current.value;
+    //add the new object to the existing todos
+    todos.push(newTodo);
+    this.setState(
+      {
+        //change the todos in state with new todos
+        todos: todos
+      },
+      //after the state is updated, update todos in the app component
+      this.props.updateToDos(this.state.todos)
+    );
   }
 
   render() {
@@ -28,11 +54,15 @@ export default class FormNewToDo extends Component {
           <Form.Row>
             <Form.Group as={Col} controlId="formTitle">
               <Form.Label>Title</Form.Label>
-              <Form.Control placeholder="Enter title" />
+              <Form.Control ref={this.title} placeholder="Enter title" />
             </Form.Group>
             <Form.Group as={Col} md={4} controlId="formPriority">
               <Form.Label>Priority</Form.Label>
-              <Form.Control as="select" placeholder="Priority">
+              <Form.Control
+                ref={this.priority}
+                as="select"
+                placeholder="Priority"
+              >
                 <option>Low</option>
                 <option>Medium</option>
                 <option>High</option>
@@ -41,12 +71,12 @@ export default class FormNewToDo extends Component {
           </Form.Row>
           <Form.Group controlId="formDescription">
             <Form.Label>Description</Form.Label>
-            <Form.Control as="textarea" rows="4" />
+            <Form.Control ref={this.description} as="textarea" rows="4" />
           </Form.Group>
           <Button
             variant="primary"
             type="button"
-            onClick={() => this.props.updateToDos(this.state.todos)}
+            onClick={this.newToDo}
           >
             Save
           </Button>
