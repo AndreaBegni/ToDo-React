@@ -15,8 +15,11 @@ export default class App extends Component {
     this.loadToDos = this.loadToDos.bind(this);
   }
 
+  componentDidMount() {
+    window.addEventListener('beforeunload', () => localStorage.setItem("todos", JSON.stringify(this.state.todos)));
+  }
+
   loadToDos = () => {
-    //localStorage.setItem("todos", JSON.stringify(list));
     if (localStorage.getItem("todos") != null) {
       return JSON.parse(localStorage.getItem("todos"));
     }
