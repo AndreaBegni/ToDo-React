@@ -10,7 +10,7 @@ export default class FormNewToDo extends Component {
     super(props);
 
     this.state = {
-      todos: props.todoJSON
+      todos: props.todos
     };
   }
 

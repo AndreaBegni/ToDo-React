@@ -8,7 +8,7 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      todoJSON: this.loadToDos()
+      todos: this.loadToDos()
     };
 
     this.updateToDos = this.updateToDos.bind(this);
@@ -16,16 +16,16 @@ export default class App extends Component {
   }
 
   loadToDos = () => {
-    //localStorage.setItem("todoJSON", JSON.stringify(list));
-    if (localStorage.getItem("todoJSON") != null) {
-      return JSON.parse(localStorage.getItem("todoJSON"));
+    //localStorage.setItem("todos", JSON.stringify(list));
+    if (localStorage.getItem("todos") != null) {
+      return JSON.parse(localStorage.getItem("todos"));
     }
   };
 
   updateToDos = newTodos => {
     this.setState(
       {
-        todoJSON: newTodos
+        todos: newTodos
       },
       () => {
         console.log(this.state);
@@ -38,10 +38,10 @@ export default class App extends Component {
       <div className="App">
         <Navigation></Navigation>
         <FormNewToDo
-          todoJSON={this.state.todoJSON}
+          todos={this.state.todos}
           updateToDos={this.updateToDos}
         ></FormNewToDo>
-        <ToDoList todoJSON={this.state.todoJSON}></ToDoList>
+        <ToDoList todos={this.state.todos}></ToDoList>
       </div>
     );
   }

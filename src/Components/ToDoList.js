@@ -7,9 +7,9 @@ export default class ToDoList extends Component {
     super(props);
 
     this.state = {
-      todos: props.todoJSON
+      todos: props.todos
     };
-    console.log(props.todoJSON);
+    console.log(props.todos);
   }
 
   renderTodos = todos => {
