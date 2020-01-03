@@ -6,25 +6,30 @@ export default class ToDoList extends Component {
   constructor(props) {
     super(props);
 
-    this.state = props.todoJSON;
+    this.state = {
+      todos: props.todoJSON
+    };
+    console.log(props.todoJSON);
   }
+
+  renderTodos = todos => {
+    if (todos != null) {
+      return todos.map((todo, i) => (
+        <Card key={i}>
+          <Accordion.Toggle as={Card.Header} eventKey={i}>
+            <h3>{todo.title}</h3>
+          </Accordion.Toggle>
+          <Accordion.Collapse eventKey={i}>
+            <Card.Body>{todo.description}</Card.Body>
+          </Accordion.Collapse>
+        </Card>
+      ));
+    }
+  };
 
   render() {
     const { todos } = this.state;
-    const renderTodos = () => {
-      if (todos != null) {
-        return todos.map((todo, i) => (
-          <Card key={i}>
-            <Accordion.Toggle as={Card.Header} eventKey={i}>
-              <h3>{todo.title}</h3>
-            </Accordion.Toggle>
-            <Accordion.Collapse eventKey={i}>
-              <Card.Body>{todo.description}</Card.Body>
-            </Accordion.Collapse>
-          </Card>
-        ));
-      }
-    };
-    return <Accordion>{renderTodos()}</Accordion>;
+
+    return <Accordion>{this.renderTodos(todos)}</Accordion>;
   }
 }
