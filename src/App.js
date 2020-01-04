@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Navigation from "./Components/Navigation";
 import ToDoList from "./Components/ToDoList";
 import FormNewToDo from "./Components/FormNewToDo";
+import { Container } from "react-bootstrap";
 
 export default class App extends Component {
   constructor(props) {
@@ -10,7 +11,6 @@ export default class App extends Component {
     this.state = {
       todos: this.loadToDos()
     };
-    console.log("sono costruttore", this.state);
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
 
@@ -43,15 +43,16 @@ export default class App extends Component {
   };
 
   render() {
-    console.log("sono render", this.state);
     return (
       <div className="App">
-        <Navigation></Navigation>
-        <FormNewToDo
-          todos={this.state.todos}
-          updateToDos={this.updateToDos}
-        ></FormNewToDo>
-        <ToDoList todos={this.state.todos}></ToDoList>
+        <Container>
+          <Navigation></Navigation>
+          <FormNewToDo
+            todos={this.state.todos}
+            updateToDos={this.updateToDos}
+          ></FormNewToDo>
+          <ToDoList todos={this.state.todos}></ToDoList>
+        </Container>
       </div>
     );
   }
