@@ -31,14 +31,20 @@ export default class App extends Component {
     }
   };
 
-  updateToDos = newTodos => {
+  updateToDos = (action, position, todo) => {
+    let todos = this.state.todos;
+    if (action === "add") {
+      todos.push(todo);
+    } else if (action === "delete") {
+      todos.splice(position, 1);
+    } else if (action === "modify") {
+      todos[position] = todo;
+    }
     this.setState(
       {
-        todos: newTodos
+        todos: todos
       },
-      () => {
-        console.log(this.state);
-      }
+      console.log(this.state.todos)
     );
   };
 
@@ -47,11 +53,11 @@ export default class App extends Component {
       <div className="App">
         <Container>
           <Navigation></Navigation>
-          <FormNewToDo
+          <FormNewToDo updateToDos={this.updateToDos}></FormNewToDo>
+          <ToDoList
             todos={this.state.todos}
             updateToDos={this.updateToDos}
-          ></FormNewToDo>
-          <ToDoList todos={this.state.todos}></ToDoList>
+          ></ToDoList>
         </Container>
       </div>
     );
