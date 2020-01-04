@@ -9,10 +9,6 @@ export default class FormNewToDo extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      todos: props.todos
-    };
-
     this.newToDo = this.newToDo.bind(this);
     this.title = React.createRef();
     this.priority = React.createRef();
@@ -20,24 +16,19 @@ export default class FormNewToDo extends Component {
   }
 
   newToDo() {
-    //create a copy of the current todos in state
-    let todos = this.state.todos;
     //create a newTodo object
-    let newTodo = { title: "Nothing", description: "Nothing", priority: "low" };
+    let newTodo = {
+      title: "Nothing",
+      description: "Nothing",
+      priority: "low",
+      done: false
+    };
     //fill the newTodo object
     newTodo.title = this.title.current.value;
     newTodo.description = this.description.current.value;
     newTodo.priority = this.priority.current.value;
-    //add the new object to the existing todos
-    todos.push(newTodo);
-    this.setState(
-      {
-        //change the todos in state with new todos
-        todos: todos
-      },
-      //after the state is updated, update todos in the app component
-      this.props.updateToDos(this.state.todos)
-    );
+    //add the todo to the todo list in the app state
+    this.props.updateToDos("add", null, newTodo);
   }
 
   render() {
