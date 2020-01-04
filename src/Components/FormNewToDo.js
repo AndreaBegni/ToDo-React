@@ -23,7 +23,7 @@ export default class FormNewToDo extends Component {
     //create a copy of the current todos in state
     let todos = this.state.todos;
     //create a newTodo object
-    let newTodo = { title: "", description: "", priority: "low" };
+    let newTodo = { title: "Nothing", description: "Nothing", priority: "low" };
     //fill the newTodo object
     newTodo.title = this.title.current.value;
     newTodo.description = this.description.current.value;
@@ -73,11 +73,7 @@ export default class FormNewToDo extends Component {
             <Form.Label>Description</Form.Label>
             <Form.Control ref={this.description} as="textarea" rows="4" />
           </Form.Group>
-          <Button
-            variant="primary"
-            type="button"
-            onClick={this.newToDo}
-          >
+          <Button variant="primary" type="button" onClick={this.newToDo}>
             Save
           </Button>
         </Form>
