@@ -8,29 +8,26 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      todos: []
+      todos: this.loadToDos()
     };
-
+    console.log("sono costruttore", this.state);
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
-  }
 
-  componentDidMount() {
     //check if the page gets closed
     window.addEventListener("beforeunload", () =>
       //save the current todos that are in the state into the localStorage
       localStorage.setItem("todos", JSON.stringify(this.state.todos))
     );
-    this.loadToDos();
   }
 
   loadToDos = () => {
     //check there is a todo item already saved in localStorage
     if (localStorage.getItem("todos") != null) {
-      this.setState({
-        //set the todos in state with the todos saved in the localStorage
-        todos: JSON.parse(localStorage.getItem("todos"))
-      });
+      //set the todos in state with the todos saved in the localStorage
+      return JSON.parse(localStorage.getItem("todos"));
+    } else {
+      return [];
     }
   };
 
@@ -46,6 +43,7 @@ export default class App extends Component {
   };
 
   render() {
+    console.log("sono render", this.state);
     return (
       <div className="App">
         <Navigation></Navigation>
