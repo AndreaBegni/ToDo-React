@@ -13,9 +13,13 @@ export default class Navigation extends Component {
               New Todo
             </Nav.Link>
             <NavDropdown title="Sort by priority" id="basic-nav-dropdown">
-              <NavDropdown.Item onClick={() => this.props.sortTodos(-1)}>From high to low</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => this.props.sortTodos(-1)}>
+                From high to low
+              </NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item onClick={() => this.props.sortTodos(1)}>From low to high</NavDropdown.Item>
+              <NavDropdown.Item onClick={() => this.props.sortTodos(1)}>
+                From low to high
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

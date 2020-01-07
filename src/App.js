@@ -5,7 +5,7 @@ import FormNewToDo from "./Components/FormNewToDo";
 import { Container } from "react-bootstrap";
 
 function sortOrder(criteria) {
-  console.log("sto facendo")
+  console.log("sto facendo");
   return (a, b) => {
     if (a["priority"] > b["priority"]) {
       return 1 * criteria;
@@ -28,7 +28,7 @@ export default class App extends Component {
     this.loadToDos = this.loadToDos.bind(this);
     this.setFormState = this.setFormState.bind(this);
     this.sortTodos = this.sortTodos.bind(this);
-    
+
     //check if the page gets closed
     window.addEventListener("beforeunload", () =>
       //save the current todos that are in the state into the localStorage
@@ -36,6 +36,8 @@ export default class App extends Component {
     );
   }
 
+  //criteria = 1 represent from low to high
+  //criteria = -1 represent from high to low
   sortTodos = criteria => {
     let todos = this.state.todos;
     todos.sort(sortOrder(criteria));
@@ -63,11 +65,12 @@ export default class App extends Component {
   };
 
   loadToDos = () => {
-    //check there is a todo item already saved in localStorage
+    //check if there is a todo item already saved in localStorage
     if (localStorage.getItem("todos") != null) {
       //set the todos in state with the todos saved in the localStorage
       return JSON.parse(localStorage.getItem("todos"));
     } else {
+      //returns an empty array
       return [];
     }
   };
