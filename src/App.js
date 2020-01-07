@@ -4,6 +4,18 @@ import ToDoList from "./Components/ToDoList";
 import FormNewToDo from "./Components/FormNewToDo";
 import { Container } from "react-bootstrap";
 
+function sortOrder(criteria) {
+  console.log("sto facendo")
+  return (a, b) => {
+    if (a["priority"] > b["priority"]) {
+      return 1 * criteria;
+    } else if (a["priority"] < b["priority"]) {
+      return -1 * criteria;
+    }
+    return 0;
+  };
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -15,13 +27,22 @@ export default class App extends Component {
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
     this.setFormState = this.setFormState.bind(this);
-
+    this.sortTodos = this.sortTodos.bind(this);
+    
     //check if the page gets closed
     window.addEventListener("beforeunload", () =>
       //save the current todos that are in the state into the localStorage
       localStorage.setItem("todos", JSON.stringify(this.state.todos))
     );
   }
+
+  sortTodos = criteria => {
+    let todos = this.state.todos;
+    todos.sort(sortOrder(criteria));
+    this.setState({
+      todos: todos
+    });
+  };
 
   //set newTodo in state to the opposite boolean value that it has now
   setFormState = () => {
@@ -72,7 +93,10 @@ export default class App extends Component {
     return (
       <div className="App">
         <Container>
-          <Navigation setFormState={this.setFormState}></Navigation>
+          <Navigation
+            setFormState={this.setFormState}
+            sortTodos={this.sortTodos}
+          ></Navigation>
           {this.showForm()}
           <ToDoList
             todos={this.state.todos}
