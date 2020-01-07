@@ -10,10 +10,11 @@ export default class App extends Component {
 
     this.state = {
       todos: this.loadToDos(),
-      newTodo: false
+      newTodo: true
     };
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
+    this.setFormState = this.setFormState.bind(this);
 
     //check if the page gets closed
     window.addEventListener("beforeunload", () =>
@@ -22,10 +23,23 @@ export default class App extends Component {
     );
   }
 
-  showForm = () =>{
+  //set newTodo in state to the opposite boolean value that it has now
+  setFormState = () => {
+    this.setState({
+      newTodo: !this.state.newTodo
+    });
+  };
+
+  //shows the form to make a new todo
+  showForm = () => {
     if (this.state.newTodo)
-      return <FormNewToDo updateToDos={this.updateToDos}></FormNewToDo>
-  }
+      return (
+        <FormNewToDo
+          updateToDos={this.updateToDos}
+          setFormState={this.setFormState}
+        ></FormNewToDo>
+      );
+  };
 
   loadToDos = () => {
     //check there is a todo item already saved in localStorage
@@ -58,7 +72,7 @@ export default class App extends Component {
     return (
       <div className="App">
         <Container>
-          <Navigation></Navigation>
+          <Navigation setFormState={this.setFormState}></Navigation>
           {this.showForm()}
           <ToDoList
             todos={this.state.todos}

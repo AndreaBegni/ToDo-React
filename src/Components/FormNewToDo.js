@@ -29,6 +29,7 @@ export default class FormNewToDo extends Component {
     newTodo.priority = this.priority.current.value;
     //add the todo to the todo list in the app state
     this.props.updateToDos("add", null, newTodo);
+    this.props.setFormState();
   }
 
   render() {
