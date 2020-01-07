@@ -9,7 +9,8 @@ export default class App extends Component {
     super(props);
 
     this.state = {
-      todos: this.loadToDos()
+      todos: this.loadToDos(),
+      newTodo: false
     };
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
@@ -19,6 +20,11 @@ export default class App extends Component {
       //save the current todos that are in the state into the localStorage
       localStorage.setItem("todos", JSON.stringify(this.state.todos))
     );
+  }
+
+  showForm = () =>{
+    if (this.state.newTodo)
+      return <FormNewToDo updateToDos={this.updateToDos}></FormNewToDo>
   }
 
   loadToDos = () => {
@@ -53,7 +59,7 @@ export default class App extends Component {
       <div className="App">
         <Container>
           <Navigation></Navigation>
-          <FormNewToDo updateToDos={this.updateToDos}></FormNewToDo>
+          {this.showForm()}
           <ToDoList
             todos={this.state.todos}
             updateToDos={this.updateToDos}
