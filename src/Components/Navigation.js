@@ -21,6 +21,25 @@ export default class Navigation extends Component {
                 From low to high
               </NavDropdown.Item>
             </NavDropdown>
+            <NavDropdown title="Filter todos" id="basic-nav-dropdown">
+              <NavDropdown.Item
+                onClick={() => this.props.setTodosToShow("all")}
+              >
+                All
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                onClick={() => this.props.setTodosToShow("undone")}
+              >
+                Undone
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                onClick={() => this.props.setTodosToShow("done")}
+              >
+                Done
+              </NavDropdown.Item>
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

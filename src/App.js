@@ -5,7 +5,6 @@ import FormNewToDo from "./Components/FormNewToDo";
 import { Container } from "react-bootstrap";
 
 function sortOrder(criteria) {
-  console.log("sto facendo");
   return (a, b) => {
     if (a["priority"] > b["priority"]) {
       return 1 * criteria;
@@ -22,19 +21,46 @@ export default class App extends Component {
 
     this.state = {
       todos: this.loadToDos(),
+      todosToShow: "all",
       newTodo: true
     };
     this.updateToDos = this.updateToDos.bind(this);
     this.loadToDos = this.loadToDos.bind(this);
     this.setFormState = this.setFormState.bind(this);
     this.sortTodos = this.sortTodos.bind(this);
-
+    this.setTodosToShow = this.setTodosToShow.bind(this);
+    this.filterTodosToShow = this.filterTodosToShow.bind(this);
     //check if the page gets closed
     window.addEventListener("beforeunload", () =>
       //save the current todos that are in the state into the localStorage
       localStorage.setItem("todos", JSON.stringify(this.state.todos))
     );
   }
+
+  setTodosToShow = type => {
+    this.setState({
+      todosToShow: type
+    });
+  };
+
+  filterTodosToShow = () => {
+    if (this.state.todosToShow === "done") {
+      console.log(
+        "sono done",
+        this.state.todos.filter(element => element.state === "done")
+      );
+      return this.state.todos.filter(element => element.state === "done");
+    } else if (this.state.todosToShow === "undone") {
+      console.log(
+        "sono undone",
+        this.state.todos.filter(element => element.state === "undone")
+      );
+      return this.state.todos.filter(element => element.state === "undone");
+    } else {
+      console.log("sono tutto");
+      return this.state.todos;
+    }
+  };
 
   //criteria = 1 represent from low to high
   //criteria = -1 represent from high to low
@@ -75,20 +101,24 @@ export default class App extends Component {
     }
   };
 
-  updateToDos = (action, position, todo) => {
+  updateToDos = (action, key, todo) => {
     let todos = this.state.todos;
     if (action === "add") {
       todos.push(todo);
     } else if (action === "delete") {
-      todos.splice(position, 1);
+      todos.splice(
+        todos.findIndex(todo => todo.key === key),
+        1
+      );
     } else if (action === "modify") {
-      todos[position] = todo;
+      console.log("sono todo", todo);
+      todos[todos.findIndex(todo => todo.key === key)] = todo;
     }
     this.setState(
       {
         todos: todos
       },
-      console.log(this.state.todos)
+      console.log("sono il todos principale", this.state.todos)
     );
   };
 
@@ -99,10 +129,11 @@ export default class App extends Component {
           <Navigation
             setFormState={this.setFormState}
             sortTodos={this.sortTodos}
+            setTodosToShow={this.setTodosToShow}
           ></Navigation>
           {this.showForm()}
           <ToDoList
-            todos={this.state.todos}
+            todos={this.filterTodosToShow()}
             updateToDos={this.updateToDos}
           ></ToDoList>
         </Container>

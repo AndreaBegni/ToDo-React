@@ -7,19 +7,21 @@ import tick from "../Images/tick.png";
 
 export default class ToDoList extends Component {
   doneTodo(e) {
-    let todo = this.props.todos[e.target.id];
-    todo.done = true;
-    this.props.updateToDos("modify", e.target.id, todo);
+    let todo = this.props.todos.filter(todo => todo.key === e.target.id);
+    todo[0].state = "done";
+    let key = e.target.id;
+    this.props.updateToDos("modify", key, todo[0]);
   }
 
   deleteTodo(e) {
-    this.props.updateToDos("delete", e.target.id, null);
+    let key = e.target.id;
+    this.props.updateToDos("delete", key, null);
   }
 
   renderTodos = todos => {
     if (todos != null) {
       return todos.map((todo, i) => (
-        <Card ref={i} key={i}>
+        <Card key={i}>
           <Accordion.Toggle bg="success" as={Card.Header} eventKey={i}>
             <Container>
               <Row>
@@ -28,7 +30,7 @@ export default class ToDoList extends Component {
                 </Col>
                 <Col md={{ span: 1, offset: 6 }}>
                   <Image
-                    id={i}
+                    id={todo.key}
                     src={tick}
                     style={{ width: "35px", height: "35px" }}
                     onClick={e => this.doneTodo(e)}
@@ -36,7 +38,7 @@ export default class ToDoList extends Component {
                 </Col>
                 <Col md="1">
                   <Image
-                    id={i}
+                    id={todo.key}
                     src={trashCan}
                     style={{ width: "35px", height: "35px" }}
                     onClick={e => this.deleteTodo(e)}

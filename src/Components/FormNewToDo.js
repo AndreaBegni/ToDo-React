@@ -21,7 +21,8 @@ export default class FormNewToDo extends Component {
       title: "Nothing",
       description: "Nothing",
       priority: "low",
-      done: false
+      state: "undone",
+      key: Date().toString()
     };
     //fill the newTodo object
     newTodo.title = this.title.current.value;
