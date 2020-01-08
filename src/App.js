@@ -45,19 +45,10 @@ export default class App extends Component {
 
   filterTodosToShow = () => {
     if (this.state.todosToShow === "done") {
-      console.log(
-        "sono done",
-        this.state.todos.filter(element => element.state === "done")
-      );
       return this.state.todos.filter(element => element.state === "done");
     } else if (this.state.todosToShow === "undone") {
-      console.log(
-        "sono undone",
-        this.state.todos.filter(element => element.state === "undone")
-      );
       return this.state.todos.filter(element => element.state === "undone");
     } else {
-      console.log("sono tutto");
       return this.state.todos;
     }
   };
@@ -101,6 +92,8 @@ export default class App extends Component {
     }
   };
 
+  //key = the date of the todo that has to be deleted or modified
+  //todo = the new todo that is going to replace the old one
   updateToDos = (action, key, todo) => {
     let todos = this.state.todos;
     if (action === "add") {
@@ -111,15 +104,11 @@ export default class App extends Component {
         1
       );
     } else if (action === "modify") {
-      console.log("sono todo", todo);
       todos[todos.findIndex(todo => todo.key === key)] = todo;
     }
-    this.setState(
-      {
-        todos: todos
-      },
-      console.log("sono il todos principale", this.state.todos)
-    );
+    this.setState({
+      todos: todos
+    });
   };
 
   render() {
